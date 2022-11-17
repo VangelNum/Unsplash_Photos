@@ -72,11 +72,14 @@ dependencies {
 
     //pagination
     def paging_version = "3.1.1"
-
     implementation "androidx.paging:paging-runtime:$paging_version"
 
     // alternatively - without Android dependencies for tests
     testImplementation "androidx.paging:paging-common:$paging_version"
     implementation("androidx.paging:paging-compose:1.0.0-alpha17")
+
+    //navigation
+    def nav_version = "2.5.3"
+    implementation("androidx.navigation:navigation-compose:$nav_version")
 
 }
