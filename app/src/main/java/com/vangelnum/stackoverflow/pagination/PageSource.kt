@@ -2,8 +2,8 @@ package com.vangelnum.stackoverflow.pagination
 
 import androidx.paging.PagingSource
 import androidx.paging.PagingState
-import com.vangelnum.stackoverflow.ApiInterface
 import com.vangelnum.stackoverflow.dataclass.PhotosItem
+import com.vangelnum.stackoverflow.network.ApiInterface
 
 class PageSource : PagingSource<Int, PhotosItem>() {
     override fun getRefreshKey(state: PagingState<Int, PhotosItem>): Int? {

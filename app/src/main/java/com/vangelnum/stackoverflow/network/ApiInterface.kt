@@ -1,4 +1,4 @@
-package com.vangelnum.stackoverflow
+package com.vangelnum.stackoverflow.network
 
 import com.vangelnum.stackoverflow.dataclass.PhotosItem
 import retrofit2.Response
