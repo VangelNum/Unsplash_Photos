@@ -20,13 +20,16 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavController
 import androidx.paging.compose.collectAsLazyPagingItems
 import coil.compose.SubcomposeAsyncImage
 import com.vangelnum.LazyVerticalGrid.items
 import com.vangelnum.stackoverflow.presentation.navigation.Navigation
-import com.vangelnum.stackoverflow.room.PhotoItem
+import com.vangelnum.stackoverflow.presentation.navigation.Screens
 import com.vangelnum.stackoverflow.ui.theme.StackoverflowTheme
 import com.vangelnum.stackoverflow.viewmodel.ViewModel
+import java.net.URLEncoder
+import java.nio.charset.StandardCharsets
 
 
 class MainActivity : ComponentActivity() {
@@ -43,7 +46,7 @@ class MainActivity : ComponentActivity() {
 
 
 @Composable
-fun LibraryImage(viewModel: ViewModel) {
+fun LibraryImage(viewModel: ViewModel, navController: NavController) {
     val photos = viewModel.pager.collectAsLazyPagingItems()
     LazyVerticalGrid(
         columns = GridCells.Fixed(2),
@@ -68,7 +71,10 @@ fun LibraryImage(viewModel: ViewModel) {
                         .height(300.dp)
                         .clip(RoundedCornerShape(15.dp))
                         .clickable {
-                            viewModel.addPhoto(PhotoItem(0, item.urls.full))
+                            val encodedUrl =
+                                URLEncoder.encode(item.urls.full, StandardCharsets.UTF_8.toString())
+                            navController.navigate(Screens.WatchPhotoScreen.withArgs(encodedUrl))
+                            //viewModel.addPhoto(PhotoItem(0, item.urls.full))
                         }
                 )
             }

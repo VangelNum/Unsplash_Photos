@@ -3,7 +3,9 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Users/vangel/Unsplash Photos/app/src/main/res/drawable/ic_baseline_download_24.xml" value="0.1" />
         <entry key="..\:/Users/vangel/Unsplash Photos/app/src/main/res/drawable/ic_baseline_favorite_24.xml" value="0.1" />
+        <entry key="..\:/Users/vangel/Unsplash Photos/app/src/main/res/drawable/ic_outline_share_24.xml" value="0.1" />
       </map>
     </option>
   </component>

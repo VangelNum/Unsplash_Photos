@@ -1,16 +1,13 @@
 package com.vangelnum.stackoverflow.viewmodel
 
 import android.app.Application
-import android.util.Log
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
-import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import androidx.paging.Pager
 import androidx.paging.PagingConfig
 import androidx.paging.cachedIn
 import com.vangelnum.stackoverflow.pagination.PageSource
-import com.vangelnum.stackoverflow.room.PhotoDao
 import com.vangelnum.stackoverflow.room.PhotoDatabase
 import com.vangelnum.stackoverflow.room.PhotoItem
 import com.vangelnum.stackoverflow.room.PhotoRepository
@@ -34,7 +31,6 @@ class ViewModel(application: Application) : AndroidViewModel(application) {
         repository = PhotoRepository(todoDao)
         readAllData = repository.readAllData
     }
-
 
     fun addPhoto(photoItem: PhotoItem) {
         viewModelScope.launch(Dispatchers.IO) {

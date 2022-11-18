@@ -22,9 +22,9 @@ import com.vangelnum.stackoverflow.viewmodel.ViewModel
 
 @Composable
 fun FavouriteScreen(
-    vm: ViewModel,
+    viewModel: ViewModel,
 ) {
-    val items = vm.readAllData.observeAsState(listOf()).value
+    val items = viewModel.readAllData.observeAsState(listOf()).value
     LazyVerticalGrid(
         columns = GridCells.Fixed(2),
         verticalArrangement = Arrangement.spacedBy(8.dp),
