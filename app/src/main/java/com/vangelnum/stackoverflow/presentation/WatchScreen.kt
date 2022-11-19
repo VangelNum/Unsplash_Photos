@@ -10,6 +10,7 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Card
+import androidx.compose.material.CircularProgressIndicator
 import androidx.compose.material.Icon
 import androidx.compose.material.MaterialTheme
 import androidx.compose.runtime.Composable
@@ -58,7 +59,14 @@ fun WatchPhoto(url: String?, viewModel: ViewModel) {
                 model = url,
                 contentDescription = "image",
                 modifier = Modifier.fillMaxSize(),
-                contentScale = ContentScale.Crop
+                contentScale = ContentScale.Crop,
+                loading = {
+                    Box(contentAlignment = Alignment.Center) {
+                        CircularProgressIndicator(
+                            color = Color.Green
+                        )
+                    }
+                }
             )
         }
         Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.BottomCenter) {
@@ -116,7 +124,8 @@ fun WatchPhoto(url: String?, viewModel: ViewModel) {
                         }
                 ) {
                     Icon(
-                        painter = painterResource(id = R.drawable.ic_baseline_favorite_24),
+                        painter = if (!currentStateFavourite) painterResource(id = R.drawable.ic_baseline_favorite_border_24) else painterResource(
+                            id = R.drawable.ic_baseline_favorite_24),
                         contentDescription = "favourite",
                         tint = if (!currentStateFavourite) Color.White else Color.Red,
                         modifier = Modifier.padding(10.dp)

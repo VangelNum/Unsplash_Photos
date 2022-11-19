@@ -8,6 +8,8 @@ import androidx.paging.Pager
 import androidx.paging.PagingConfig
 import androidx.paging.cachedIn
 import com.vangelnum.stackoverflow.pagination.PageSource
+import com.vangelnum.stackoverflow.pagination.PageSourceForPopular
+import com.vangelnum.stackoverflow.pagination.PageSourceForRandom
 import com.vangelnum.stackoverflow.room.PhotoDatabase
 import com.vangelnum.stackoverflow.room.PhotoItem
 import com.vangelnum.stackoverflow.room.PhotoRepository
@@ -20,6 +22,20 @@ class ViewModel(application: Application) : AndroidViewModel(application) {
         config = PagingConfig(pageSize = 10),
         pagingSourceFactory = {
             PageSource()
+        }
+    ).flow.cachedIn(viewModelScope)
+
+    val pagerRandom = Pager(
+        config = PagingConfig(pageSize = 30),
+        pagingSourceFactory = {
+            PageSourceForRandom()
+        }
+    ).flow.cachedIn(viewModelScope)
+
+    val pagerPopular = Pager(
+        config = PagingConfig(pageSize = 30),
+        pagingSourceFactory = {
+            PageSourceForPopular()
         }
     ).flow.cachedIn(viewModelScope)
 

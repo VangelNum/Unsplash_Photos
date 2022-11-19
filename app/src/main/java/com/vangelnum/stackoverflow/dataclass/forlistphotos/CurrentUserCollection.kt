@@ -1,4 +1,4 @@
-package com.vangelnum.stackoverflow.dataclass
+package com.vangelnum.stackoverflow.dataclass.forlistphotos
 
 data class CurrentUserCollection(
     val cover_photo: Any,

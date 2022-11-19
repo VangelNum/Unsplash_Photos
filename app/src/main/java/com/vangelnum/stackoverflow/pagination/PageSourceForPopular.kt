@@ -5,7 +5,7 @@ import androidx.paging.PagingState
 import com.vangelnum.stackoverflow.dataclass.forlistphotos.PhotosItem
 import com.vangelnum.stackoverflow.network.ApiInterface
 
-class PageSource : PagingSource<Int, PhotosItem>() {
+class PageSourceForPopular: PagingSource<Int, PhotosItem>() {
     override fun getRefreshKey(state: PagingState<Int, PhotosItem>): Int? {
         return state.anchorPosition?.let { anchorPosition ->
             val anchorPage = state.closestPageToPosition(anchorPosition)
@@ -16,7 +16,7 @@ class PageSource : PagingSource<Int, PhotosItem>() {
     override suspend fun load(params: LoadParams<Int>): LoadResult<Int, PhotosItem> {
         return try {
             val page = params.key ?: 1
-            val photoResponse = ApiInterface.create().getPhotos(page,"latest")
+            val photoResponse = ApiInterface.create().getPhotos(page,"popular")
             LoadResult.Page(
                 data = photoResponse.body()!!,
                 prevKey = null,

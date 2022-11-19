@@ -1,4 +1,4 @@
-package com.vangelnum.stackoverflow.dataclass
+package com.vangelnum.stackoverflow.dataclass.forlistphotos
 
 data class PhotosItem(
     val blur_hash: String,

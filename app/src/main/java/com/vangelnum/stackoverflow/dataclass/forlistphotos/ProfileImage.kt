@@ -1,4 +1,4 @@
-package com.vangelnum.stackoverflow.dataclass
+package com.vangelnum.stackoverflow.dataclass.forlistphotos
 
 data class ProfileImage(
     val large: String,
