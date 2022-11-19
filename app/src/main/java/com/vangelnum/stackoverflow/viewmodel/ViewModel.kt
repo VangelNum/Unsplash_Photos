@@ -50,4 +50,10 @@ class ViewModel(application: Application) : AndroidViewModel(application) {
         }
     }
 
+    fun deletePhotoByUrl(url: String) {
+        viewModelScope.launch(Dispatchers.IO) {
+            repository.deletePhotoByUrl(url)
+        }
+    }
+
 }

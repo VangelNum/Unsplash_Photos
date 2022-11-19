@@ -16,4 +16,9 @@ class PhotoRepository(private val photoDatabase: PhotoDao) {
     suspend fun deletePhoto(photoItem: PhotoItem) {
         photoDatabase.deletePhoto(photoItem)
     }
+
+    suspend fun deletePhotoByUrl(url: String) {
+        photoDatabase.deletePhoto(url)
+    }
+
 }

@@ -18,4 +18,7 @@ interface PhotoDao {
 
     @Delete
     fun deletePhoto(photo: PhotoItem)
+
+    @Query("DELETE FROM entity_table WHERE urlPhoto = :urlPhoto")
+    fun deletePhoto(urlPhoto: String)
 }
