@@ -1,19 +1,27 @@
 package com.vangelnum.stackoverflow.presentation.navigation
 
+import androidx.compose.animation.AnimatedVisibility
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.BottomNavigation
-import androidx.compose.material.BottomNavigationItem
-import androidx.compose.material.Icon
-import androidx.compose.material.Scaffold
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
+import androidx.compose.foundation.text.KeyboardActions
+import androidx.compose.material.*
+import androidx.compose.runtime.*
 import androidx.compose.runtime.livedata.observeAsState
+import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.draw.scale
+import androidx.compose.ui.focus.FocusRequester
+import androidx.compose.ui.focus.focusRequester
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import androidx.navigation.NavDestination.Companion.hierarchy
 import androidx.navigation.NavGraph.Companion.findStartDestination
 import androidx.navigation.NavType
@@ -23,12 +31,15 @@ import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
 import com.vangelnum.stackoverflow.LibraryImage
+import com.vangelnum.stackoverflow.R
 import com.vangelnum.stackoverflow.presentation.FavouriteScreen
 import com.vangelnum.stackoverflow.presentation.PopularScreen
+import com.vangelnum.stackoverflow.presentation.SearchScreen
 import com.vangelnum.stackoverflow.presentation.WatchPhoto
 import com.vangelnum.stackoverflow.room.PhotoItem
 import com.vangelnum.stackoverflow.viewmodel.ViewModel
 
+@OptIn(ExperimentalComposeUiApi::class)
 @Composable
 fun Navigation(viewModel: ViewModel) {
     val navController = rememberNavController()
@@ -41,7 +52,143 @@ fun Navigation(viewModel: ViewModel) {
 
     val itemsFavouritePhotos: List<PhotoItem> = viewModel.readAllData.observeAsState(listOf()).value
 
+    var query by remember {
+        mutableStateOf("")
+    }
+
     Scaffold(
+        topBar = {
+            val keyboardController = LocalSoftwareKeyboardController.current
+            val focusRequester = remember { FocusRequester() }
+            var visibleSearchBar by remember {
+                mutableStateOf(false)
+            }
+            var visiblecurrentSearch by remember {
+                mutableStateOf(true)
+            }
+
+            var searchtext by remember {
+                mutableStateOf(false)
+            }
+            val state = remember { mutableStateOf(TextFieldValue("")) }
+            TopAppBar(
+                actions = {
+                    LaunchedEffect(visibleSearchBar) {
+                        if (visibleSearchBar) {
+                            focusRequester.requestFocus()
+                            keyboardController?.show()
+                        }
+                    }
+                    AnimatedVisibility(visible = visiblecurrentSearch) {
+                        IconButton(onClick = {
+                            visiblecurrentSearch = false
+                            visibleSearchBar = true
+                            searchtext = true
+
+                        }) {
+                            Icon(painter = painterResource(id = R.drawable.ic_outline_search_24),
+                                contentDescription = "search")
+                        }
+
+                    }
+                    AnimatedVisibility(
+                        visible = visibleSearchBar,
+
+                        ) {
+                        TextField(
+                            modifier = Modifier
+                                .focusRequester(focusRequester)
+                                .fillMaxWidth()
+                                .padding(end = 10.dp)
+                                .scale(scaleX = 1F, scaleY = 0.9F),
+                            value = state.value,
+                            onValueChange = { value ->
+                                state.value = value
+                            },
+                            enabled = true,
+                            shape = RoundedCornerShape(25.dp),
+
+                            textStyle = TextStyle(color = Color.White),
+                            placeholder = {
+                                Text(
+                                    text = "Search",
+                                    fontSize = 14.sp,
+                                )
+                            },
+
+                            keyboardActions = KeyboardActions(
+                                onDone = {
+                                    if (state.value.text != "")
+                                        query = state.value.text
+                                    navController.navigate(Screens.SearchScreen.route)
+
+                                }
+                            ),
+                            leadingIcon = {
+                                Icon(
+                                    painter = painterResource(id = R.drawable.ic_outline_search_24),
+                                    contentDescription = "",
+                                    modifier = Modifier
+                                        .size(20.dp)
+                                )
+                            },
+                            trailingIcon = {
+                                IconButton(
+                                    onClick = {
+                                        state.value = TextFieldValue("")
+                                    }
+                                ) {
+                                    Icon(
+                                        painter = painterResource(id = R.drawable.ic_round_close_24),
+                                        contentDescription = "",
+                                        modifier = Modifier
+                                            .size(20.dp)
+                                    )
+                                }
+
+                            },
+                            singleLine = true,
+                            colors = TextFieldDefaults.textFieldColors(
+                                textColor = Color.White,
+                                cursorColor = Color.Black,
+                                leadingIconColor = Color.White,
+                                trailingIconColor = Color.White,
+                                focusedIndicatorColor = Color.Transparent,
+                                unfocusedIndicatorColor = Color.Transparent,
+                                disabledIndicatorColor = Color.Black,
+                            )
+                        )
+                    }
+
+
+                },
+                title = {
+
+                },
+                navigationIcon = {
+                    if (!searchtext) {
+                        IconButton(onClick = {}) {
+                            Icon(painter = painterResource(id = R.drawable.ic_baseline_menu_24),
+                                contentDescription = "menu")
+
+                        }
+                    } else {
+                        IconButton(onClick = {
+                            visibleSearchBar = false
+                            visiblecurrentSearch = true
+                            searchtext = false
+                            keyboardController?.hide()
+                        }) {
+                            Icon(painter = painterResource(id = R.drawable.ic_baseline_arrow_back_24),
+                                contentDescription = "menu")
+
+                        }
+                    }
+                },
+                elevation = 0.dp,
+                backgroundColor = Color.Transparent,
+            )
+        },
         bottomBar = {
             BottomNavigation(modifier = Modifier.clip(RoundedCornerShape(topStart = 25.dp,
                 topEnd = 25.dp))) {
@@ -73,7 +220,9 @@ fun Navigation(viewModel: ViewModel) {
             modifier = Modifier.padding(innerPadding)
         ) {
             composable(route = Screens.MainScreen.route) {
-                LibraryImage(viewModel = viewModel, navController = navController,itemsFavouritePhotos = itemsFavouritePhotos)
+                LibraryImage(viewModel = viewModel,
+                    navController = navController,
+                    itemsFavouritePhotos = itemsFavouritePhotos)
             }
             composable(route = Screens.RandomScreen.route) {
                 RandomPhotos(
@@ -83,7 +232,7 @@ fun Navigation(viewModel: ViewModel) {
                 )
             }
             composable(route = Screens.FavoriteScreen.route) {
-                FavouriteScreen(navController = navController,items = itemsFavouritePhotos)
+                FavouriteScreen(navController = navController, items = itemsFavouritePhotos)
             }
             composable(
                 route = Screens.WatchPhotoScreen.route + "/{url}",
@@ -97,8 +246,15 @@ fun Navigation(viewModel: ViewModel) {
                 WatchPhoto(entry.arguments?.getString("url"), viewModel = viewModel)
             }
             composable(route = Screens.PopularScreen.route) {
-                PopularScreen(viewModel = viewModel, navController = navController,itemsFavouritePhotos = itemsFavouritePhotos)
+                PopularScreen(viewModel = viewModel,
+                    navController = navController,
+                    itemsFavouritePhotos = itemsFavouritePhotos)
             }
+            composable(
+                route = Screens.SearchScreen.route) { entry->
+                SearchScreen(query = query)
+            }
+
         }
     }
 

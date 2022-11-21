@@ -8,6 +8,7 @@ sealed class Screens(val icon: Int, val route: String) {
     object PopularScreen: Screens(R.drawable.ic_baseline_local_fire_department_24,"popular_screen")
     object FavoriteScreen : Screens(R.drawable.ic_baseline_favorite_24, "favorite_screen")
     object WatchPhotoScreen : Screens(R.drawable.ic_baseline_favorite_24, "watch_screen")
+    object SearchScreen: Screens(R.drawable.ic_outline_search_24,"search_screen")
 
     fun withArgs(vararg args: String): String {
         return buildString {
