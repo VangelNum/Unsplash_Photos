@@ -19,12 +19,6 @@ import androidx.compose.ui.unit.dp
 import coil.compose.SubcomposeAsyncImage
 import com.vangelnum.stackoverflow.dataclass.forsearchphotos.Result
 import com.vangelnum.stackoverflow.network.ApiInterface
-import com.vangelnum.stackoverflow.presentation.navigation.Screens
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.launch
-import java.net.URLEncoder
-import java.nio.charset.StandardCharsets
 
 @Composable
 fun SearchScreen(query: String) {
@@ -32,10 +26,10 @@ fun SearchScreen(query: String) {
     var itss by remember {
         mutableStateOf(listOf<Result>())
     }
-    GlobalScope.launch (Dispatchers.IO){
-        itss =  ApiInterface.create().getSearchPhotos(1, query = query).results
-    }
 
+    LaunchedEffect(key1 = Unit) {
+        itss = ApiInterface.create().getSearchPhotos(1, query = query).results
+    }
 
     if (itss.isEmpty()) {
         Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {

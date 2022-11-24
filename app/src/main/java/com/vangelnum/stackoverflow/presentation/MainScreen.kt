@@ -1,4 +1,4 @@
-package com.vangelnum.stackoverflow.presentation.navigation
+package com.vangelnum.stackoverflow.presentation
 
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
@@ -20,24 +20,25 @@ import androidx.paging.compose.collectAsLazyPagingItems
 import coil.compose.SubcomposeAsyncImage
 import com.vangelnum.LazyVerticalGrid.items
 import com.vangelnum.stackoverflow.R
+import com.vangelnum.stackoverflow.presentation.navigation.Screens
 import com.vangelnum.stackoverflow.room.PhotoItem
 import com.vangelnum.stackoverflow.viewmodel.ViewModel
 import java.net.URLEncoder
 import java.nio.charset.StandardCharsets
 
+
 @Composable
-fun RandomPhotos(
+fun MainScreen(
     viewModel: ViewModel,
     navController: NavController,
-    itemsFavouritePhotos: List<PhotoItem>,
+    itemsFavouritePhotos: List<PhotoItem>
 ) {
-    val photos = viewModel.pagerRandom.collectAsLazyPagingItems()
+    val photos = viewModel.pager.collectAsLazyPagingItems()
     if (photos.itemCount == 0) {
         Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
             CircularProgressIndicator(color = Color.Blue)
         }
     }
-
     LazyVerticalGrid(
         columns = GridCells.Fixed(2),
         verticalArrangement = Arrangement.spacedBy(8.dp),
@@ -91,3 +92,5 @@ fun RandomPhotos(
         }
     }
 }
+
+

@@ -9,7 +9,6 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.CircularProgressIndicator
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -21,14 +20,13 @@ import androidx.navigation.NavController
 import coil.compose.SubcomposeAsyncImage
 import com.vangelnum.stackoverflow.presentation.navigation.Screens
 import com.vangelnum.stackoverflow.room.PhotoItem
-import com.vangelnum.stackoverflow.viewmodel.ViewModel
 import java.net.URLEncoder
 import java.nio.charset.StandardCharsets
 
 @Composable
 fun FavouriteScreen(
     navController: NavController,
-    items: List<PhotoItem>
+    items: List<PhotoItem>,
 ) {
 
     if (items.isEmpty()) {

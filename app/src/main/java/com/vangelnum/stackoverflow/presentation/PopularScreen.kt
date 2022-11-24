@@ -19,18 +19,18 @@ import androidx.navigation.NavController
 import androidx.paging.compose.collectAsLazyPagingItems
 import coil.compose.SubcomposeAsyncImage
 import com.vangelnum.LazyVerticalGrid.items
+import com.vangelnum.stackoverflow.R
 import com.vangelnum.stackoverflow.presentation.navigation.Screens
 import com.vangelnum.stackoverflow.room.PhotoItem
 import com.vangelnum.stackoverflow.viewmodel.ViewModel
 import java.net.URLEncoder
 import java.nio.charset.StandardCharsets
-import com.vangelnum.stackoverflow.R
 
 @Composable
 fun PopularScreen(
     viewModel: ViewModel,
     navController: NavController,
-    itemsFavouritePhotos: List<PhotoItem>
+    itemsFavouritePhotos: List<PhotoItem>,
 ) {
     val photos = viewModel.pagerPopular.collectAsLazyPagingItems()
     if (photos.itemCount == 0) {

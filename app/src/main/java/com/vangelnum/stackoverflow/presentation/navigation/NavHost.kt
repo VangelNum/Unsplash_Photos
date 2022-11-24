@@ -30,12 +30,8 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
-import com.vangelnum.stackoverflow.LibraryImage
 import com.vangelnum.stackoverflow.R
-import com.vangelnum.stackoverflow.presentation.FavouriteScreen
-import com.vangelnum.stackoverflow.presentation.PopularScreen
-import com.vangelnum.stackoverflow.presentation.SearchScreen
-import com.vangelnum.stackoverflow.presentation.WatchPhoto
+import com.vangelnum.stackoverflow.presentation.*
 import com.vangelnum.stackoverflow.room.PhotoItem
 import com.vangelnum.stackoverflow.viewmodel.ViewModel
 
@@ -118,10 +114,11 @@ fun Navigation(viewModel: ViewModel) {
 
                             keyboardActions = KeyboardActions(
                                 onDone = {
-                                    if (state.value.text != "")
+                                    if (state.value.text != "") {
                                         query = state.value.text
-                                    navController.navigate(Screens.SearchScreen.route)
-
+                                        navController.navigate(Screens.SearchScreen.route)
+                                        keyboardController?.hide()
+                                    }
                                 }
                             ),
                             leadingIcon = {
@@ -178,6 +175,7 @@ fun Navigation(viewModel: ViewModel) {
                             visiblecurrentSearch = true
                             searchtext = false
                             keyboardController?.hide()
+                            navController.navigate(Screens.MainScreen.route)
                         }) {
                             Icon(painter = painterResource(id = R.drawable.ic_baseline_arrow_back_24),
                                 contentDescription = "menu")
@@ -211,7 +209,12 @@ fun Navigation(viewModel: ViewModel) {
                                 contentDescription = "icon",
                                 modifier = Modifier.size(24.dp)
                             )
-                        })
+                        },
+                        label = {
+                            Text(text = screen.name)
+                        },
+                        alwaysShowLabel = false
+                    )
                 }
             }
         }) { innerPadding ->
@@ -220,7 +223,7 @@ fun Navigation(viewModel: ViewModel) {
             modifier = Modifier.padding(innerPadding)
         ) {
             composable(route = Screens.MainScreen.route) {
-                LibraryImage(viewModel = viewModel,
+                MainScreen(viewModel = viewModel,
                     navController = navController,
                     itemsFavouritePhotos = itemsFavouritePhotos)
             }
@@ -251,7 +254,7 @@ fun Navigation(viewModel: ViewModel) {
                     itemsFavouritePhotos = itemsFavouritePhotos)
             }
             composable(
-                route = Screens.SearchScreen.route) { entry->
+                route = Screens.SearchScreen.route) { entry ->
                 SearchScreen(query = query)
             }
 

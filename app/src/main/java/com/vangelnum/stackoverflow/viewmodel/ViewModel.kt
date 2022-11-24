@@ -1,19 +1,12 @@
 package com.vangelnum.stackoverflow.viewmodel
 
 import android.app.Application
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.viewModelScope
 import androidx.paging.Pager
 import androidx.paging.PagingConfig
 import androidx.paging.cachedIn
-import com.vangelnum.stackoverflow.dataclass.forlistphotos.PhotosItem
-import com.vangelnum.stackoverflow.dataclass.forsearchphotos.SearchItems
-import com.vangelnum.stackoverflow.network.ApiInterface
 import com.vangelnum.stackoverflow.pagination.PageSource
 import com.vangelnum.stackoverflow.pagination.PageSourceForPopular
 import com.vangelnum.stackoverflow.pagination.PageSourceForRandom
@@ -22,7 +15,6 @@ import com.vangelnum.stackoverflow.room.PhotoItem
 import com.vangelnum.stackoverflow.room.PhotoRepository
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import retrofit2.Response
 
 
 class ViewModel(application: Application) : AndroidViewModel(application) {
