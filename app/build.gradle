@@ -84,8 +84,9 @@ dependencies {
     implementation("io.coil-kt:coil-compose:2.2.2")
 
     //pagination
-    def paging_version = "3.1.1"
+    def paging_version = "3.2.0-alpha04"
     implementation "androidx.paging:paging-runtime:$paging_version"
+    implementation "androidx.paging:paging-runtime-ktx:$paging_version"
     // alternatively - without Android dependencies for tests
     testImplementation "androidx.paging:paging-common:$paging_version"
     implementation("androidx.paging:paging-compose:1.0.0-alpha17")

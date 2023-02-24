@@ -1,4 +1,4 @@
-package com.vangelnum.unsplash.dataclass.forsearchphotos
+package com.vangelnum.unsplash.feature_search.data.dto
 
 data class Links(
     val download: String,

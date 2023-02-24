@@ -18,7 +18,7 @@ class MainPagingSource(
     override suspend fun load(params: LoadParams<Int>): LoadResult<Int, PhotosItems> {
         return try {
             val page = params.key ?: 1
-            val photoResponse = repository.getAllMainPhotos(page, 30,"latest",)
+            val photoResponse = repository.getAllMainPhotos(page, 30, "latest")
             LoadResult.Page(
                 data = photoResponse,
                 prevKey = null,
