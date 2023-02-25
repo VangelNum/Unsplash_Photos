@@ -22,7 +22,7 @@ import coil.compose.AsyncImagePainter
 import coil.compose.SubcomposeAsyncImage
 import coil.compose.SubcomposeAsyncImageContent
 import com.google.accompanist.placeholder.PlaceholderHighlight
-import com.google.accompanist.placeholder.placeholder
+import com.google.accompanist.placeholder.material3.placeholder
 import com.google.accompanist.placeholder.shimmer
 import com.google.accompanist.swiperefresh.SwipeRefresh
 import com.google.accompanist.swiperefresh.rememberSwipeRefreshState
@@ -64,9 +64,11 @@ fun PopularScreen(
                                         Box(
                                             modifier = Modifier
                                                 .height(300.dp)
+                                                .fillMaxWidth()
                                                 .placeholder(
                                                     visible = true,
                                                     color = Color(photo.color.toColorInt()),
+                                                    shape = RoundedCornerShape(4.dp),
                                                     highlight = PlaceholderHighlight.shimmer(
                                                         highlightColor = Color.White,
                                                     ),

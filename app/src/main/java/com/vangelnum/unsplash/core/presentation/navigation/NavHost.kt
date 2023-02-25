@@ -4,10 +4,13 @@ import FavouriteScreen
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.outlined.ArrowBack
 import androidx.compose.material.icons.outlined.Menu
+import androidx.compose.material3.CenterAlignedTopAppBar
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.NavigationBar
 import androidx.compose.material3.NavigationBarItem
 import androidx.compose.material3.Scaffold
@@ -17,6 +20,8 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import androidx.navigation.NavDestination
@@ -29,6 +34,8 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
+import com.vangelnum.unsplash.R
+import com.vangelnum.unsplash.core.presentation.NavigationScreen
 import com.vangelnum.unsplash.feature_main.presentation.MainScreen
 import com.vangelnum.unsplash.feature_popular.presentation.PopularScreen
 import com.vangelnum.unsplash.feature_random.presentation.RandomScreen
@@ -47,51 +54,38 @@ fun Navigation(
     Scaffold(
         topBar = {
             if (currentDestination?.route == Screens.NavigationScreen.route) {
-                TopAppBar(
-                    title = {},
+                CenterAlignedTopAppBar(
+                    title = {
+                        Text(
+                            stringResource(id = R.string.wallpaper),
+                            maxLines = 1,
+                            style = MaterialTheme.typography.titleMedium,
+                            overflow = TextOverflow.Ellipsis
+                        )
+                    },
                     navigationIcon = {
-                        IconButton(onClick = { /*TODO*/ }) {
-                            Icon(imageVector = Icons.Outlined.Menu, contentDescription = null)
+                        IconButton(onClick = {
+
+                        }) {
+                            Icon(
+                                imageVector = Icons.Outlined.Menu,
+                                contentDescription = "menu"
+                            )
                         }
-                    }
+                    },
                 )
             } else {
                 TopAppBar(
                     title = {},
                     navigationIcon = {
-                        IconButton(onClick = { /*TODO*/ }) {
-                            Icon(imageVector = Icons.Outlined.Menu, contentDescription = null)
+                        IconButton(onClick = {
+                            navController.popBackStack()
+                        }) {
+                            Icon(imageVector = Icons.Outlined.ArrowBack, contentDescription = null)
                         }
                     }
                 )
             }
-//            if (currentDestination?.route != Screens.WatchPhotoScreen.route + "/{url}" + "/{id}") {
-//                TopAppBar(
-//                    title = {
-//
-//                    },
-//                    navigationIcon = {
-//                        IconButton(onClick = {}) {
-//                            Icon(
-//                                painter = painterResource(id = R.drawable.ic_baseline_menu_24),
-//                                contentDescription = "menu"
-//                            )
-//                        }
-//                    },
-//                    elevation = 0.dp,
-//                    backgroundColor = Color.Transparent,
-//                )
-//            } else {
-//                TopAppBar(title = { },
-//                    navigationIcon = {
-//                        IconButton(onClick = {
-//                            navController.popBackStack()
-//                        }) {
-//                            Icon(imageVector = Icons.Filled.ArrowBack, contentDescription = "back")
-//                        }
-//                    }
-//                )
-//            }
         },
         bottomBar = {
             MyBottomNavigation(
@@ -101,7 +95,7 @@ fun Navigation(
         }) { innerPadding ->
         NavHost(
             navController = navController,
-            startDestination = Screens.MainScreen.route,
+            startDestination = Screens.NavigationScreen.route,
             modifier = Modifier.padding(innerPadding)
         ) {
             composable(route = Screens.MainScreen.route) {
@@ -136,6 +130,9 @@ fun Navigation(
             ) {
                 SearchScreen()
             }
+            composable(route = Screens.NavigationScreen.route) {
+                NavigationScreen(navController)
+            }
 
 
         }
@@ -151,10 +148,11 @@ fun MyBottomNavigation(
     currentDestination: NavDestination?
 ) {
     val items = listOf(
+        Screens.NavigationScreen,
         Screens.MainScreen,
-        Screens.RandomScreen,
-        Screens.PopularScreen,
-        Screens.SearchScreen,
+//        Screens.RandomScreen,
+//        Screens.PopularScreen,
+//        Screens.SearchScreen,
         Screens.FavoriteScreen
     )
 

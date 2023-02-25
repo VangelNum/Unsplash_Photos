@@ -117,7 +117,7 @@ dependencies {
     implementation "com.google.accompanist:accompanist-swiperefresh:0.27.0"
 
     //shimmer
-    implementation "com.google.accompanist:accompanist-placeholder:0.29.1-alpha"
+    implementation "com.google.accompanist:accompanist-placeholder-material3:0.29.1-alpha"
 
 
 }

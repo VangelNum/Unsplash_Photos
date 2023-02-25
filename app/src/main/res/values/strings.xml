@@ -3,4 +3,5 @@
     <string name="reload">Reload\n</string>
     <string name="enter_something">Введите текст</string>
     <string name="favourite_empty">Список избранного пуст</string>
+    <string name="wallpaper">Wallpaper\n</string>
 </resources>
