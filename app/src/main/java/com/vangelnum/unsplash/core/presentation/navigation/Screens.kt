@@ -1,4 +1,4 @@
-package com.vangelnum.unsplash.presentation.navigation
+package com.vangelnum.unsplash.core.presentation.navigation
 
 import com.vangelnum.unsplash.R
 
@@ -9,6 +9,7 @@ sealed class Screens(val icon: Int, val route: String, val name: String) {
     object FavoriteScreen : Screens(R.drawable.ic_baseline_favorite_24, "favorite_screen","Favourite")
     object WatchPhotoScreen : Screens(R.drawable.ic_baseline_favorite_24, "watch_screen", "Watch")
     object SearchScreen: Screens(R.drawable.ic_outline_search_24,"search_screen","Search")
+    object NavigationScreen: Screens(R.drawable.ic_outline_search_24,"search_screen","Search")
 
     fun withArgs(vararg args: String): String {
         return buildString {

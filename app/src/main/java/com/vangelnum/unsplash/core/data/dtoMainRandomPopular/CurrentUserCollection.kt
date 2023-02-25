@@ -1,4 +1,4 @@
-package com.vangelnum.unsplash.core.data.dtoMainAndRandom
+package com.vangelnum.unsplash.core.data.dtoMainRandomPopular
 
 data class CurrentUserCollection(
     val cover_photo: Any,

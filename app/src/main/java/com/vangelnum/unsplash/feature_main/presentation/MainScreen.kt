@@ -1,6 +1,7 @@
 package com.vangelnum.unsplash.feature_main.presentation
 
 import androidx.compose.foundation.ExperimentalFoundationApi
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.PaddingValues
@@ -9,8 +10,8 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.lazy.staggeredgrid.LazyVerticalStaggeredGrid
 import androidx.compose.foundation.lazy.staggeredgrid.StaggeredGridCells
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.Card
-import androidx.compose.material.Icon
+import androidx.compose.material3.Card
+import androidx.compose.material3.Icon
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -20,6 +21,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.core.graphics.toColorInt
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.navigation.NavController
 import androidx.paging.LoadState
 import androidx.paging.compose.collectAsLazyPagingItems
 import coil.compose.AsyncImagePainter
@@ -32,12 +34,16 @@ import com.google.accompanist.swiperefresh.SwipeRefresh
 import com.google.accompanist.swiperefresh.rememberSwipeRefreshState
 import com.vangelnum.unsplash.R
 import com.vangelnum.unsplash.core.lazy_grid_extension.items
+import com.vangelnum.unsplash.core.presentation.navigation.Screens
+import java.net.URLEncoder
+import java.nio.charset.StandardCharsets
 
 
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
 fun MainScreen(
-    viewModel: MainViewModel = hiltViewModel()
+    viewModel: MainViewModel = hiltViewModel(),
+    navController: NavController
 ) {
     val lazyPagingItems = viewModel.pager.collectAsLazyPagingItems()
 
@@ -56,7 +62,19 @@ fun MainScreen(
             if (lazyPagingItems.loadState.refresh is LoadState.NotLoading) {
                 items(lazyPagingItems) { photo ->
                     Card(
-                        shape = RoundedCornerShape(16.dp)
+                        shape = RoundedCornerShape(16.dp),
+                        modifier = Modifier.clickable {
+                            val encodedUrl = URLEncoder.encode(
+                                photo?.urls?.full,
+                                StandardCharsets.UTF_8.toString()
+                            )
+                            navController.navigate(
+                                Screens.WatchPhotoScreen.withArgs(
+                                    encodedUrl,
+                                    photo!!.id
+                                )
+                            )
+                        }
                     ) {
                         if (photo != null) {
                             SubcomposeAsyncImage(

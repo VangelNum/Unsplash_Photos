@@ -1,6 +1,6 @@
 package com.vangelnum.unsplash.feature_random.domain.model
 
-import com.vangelnum.unsplash.core.data.dtoMainAndRandom.Urls
+import com.vangelnum.unsplash.core.data.dtoMainRandomPopular.Urls
 
 
 data class PhotosItemsRandom(

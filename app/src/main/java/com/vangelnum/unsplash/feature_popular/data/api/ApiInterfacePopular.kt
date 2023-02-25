@@ -1,6 +1,6 @@
 package com.vangelnum.unsplash.feature_popular.data.api
 
-import com.vangelnum.unsplash.core.data.dtoMainAndRandom.PhotosItemDto
+import com.vangelnum.unsplash.core.data.dtoMainRandomPopular.PhotosItemDto
 import com.vangelnum.unsplash.core.utils.Constants
 import retrofit2.http.GET
 import retrofit2.http.Query

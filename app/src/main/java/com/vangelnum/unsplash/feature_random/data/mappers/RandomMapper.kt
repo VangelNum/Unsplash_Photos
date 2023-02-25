@@ -1,6 +1,6 @@
 package com.vangelnum.unsplash.feature_random.data.mappers
 
-import com.vangelnum.unsplash.core.data.dtoMainAndRandom.PhotosItemDto
+import com.vangelnum.unsplash.core.data.dtoMainRandomPopular.PhotosItemDto
 import com.vangelnum.unsplash.feature_random.domain.model.PhotosItemsRandom
 
 fun PhotosItemDto.toNormalRandomPhotos() : PhotosItemsRandom {

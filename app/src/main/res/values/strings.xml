@@ -2,4 +2,5 @@
     <string name="app_name">Stackoverflow</string>
     <string name="reload">Reload\n</string>
     <string name="enter_something">Введите текст</string>
+    <string name="favourite_empty">Список избранного пуст</string>
 </resources>

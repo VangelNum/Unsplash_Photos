@@ -1,6 +1,6 @@
 package com.vangelnum.unsplash.feature_main.data.mapper
 
-import com.vangelnum.unsplash.core.data.dtoMainAndRandom.PhotosItemDto
+import com.vangelnum.unsplash.core.data.dtoMainRandomPopular.PhotosItemDto
 import com.vangelnum.unsplash.feature_main.domain.model.PhotosItems
 
 
