@@ -15,7 +15,6 @@ import androidx.compose.material3.NavigationBar
 import androidx.compose.material3.NavigationBarItem
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
-import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
@@ -36,7 +35,8 @@ import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
 import com.vangelnum.unsplash.R
 import com.vangelnum.unsplash.core.presentation.NavigationScreen
-import com.vangelnum.unsplash.feature_main.presentation.MainScreen
+import com.vangelnum.unsplash.feature_collections.presentation.CollectionsScreen
+import com.vangelnum.unsplash.feature_latest.presentation.MainScreen
 import com.vangelnum.unsplash.feature_popular.presentation.PopularScreen
 import com.vangelnum.unsplash.feature_random.presentation.RandomScreen
 import com.vangelnum.unsplash.feature_search.presentation.SearchScreen
@@ -51,9 +51,37 @@ fun Navigation(
     val navBackStackEntry by navController.currentBackStackEntryAsState()
     val currentDestination = navBackStackEntry?.destination
 
+    val itemsScreens = listOf(
+        Screens.NavigationScreen,
+        Screens.CollectionsScreen,
+        Screens.FavoriteScreen
+    )
+
     Scaffold(
         topBar = {
-            if (currentDestination?.route == Screens.NavigationScreen.route) {
+            val currentRoute = navController.currentDestination?.route
+            val itemsRoutes = itemsScreens.map {
+                it.route
+            }
+            if (currentRoute != null && currentRoute !in itemsRoutes) {
+                CenterAlignedTopAppBar(
+                    title = {
+                        Text(
+                            text = currentDestination?.route.toString(),
+                            maxLines = 1,
+                            style = MaterialTheme.typography.titleMedium,
+                            overflow = TextOverflow.Ellipsis
+                        )
+                    },
+                    navigationIcon = {
+                        IconButton(onClick = {
+                            navController.popBackStack()
+                        }) {
+                            Icon(imageVector = Icons.Outlined.ArrowBack, contentDescription = null)
+                        }
+                    }
+                )
+            } else {
                 CenterAlignedTopAppBar(
                     title = {
                         Text(
@@ -74,23 +102,13 @@ fun Navigation(
                         }
                     },
                 )
-            } else {
-                TopAppBar(
-                    title = {},
-                    navigationIcon = {
-                        IconButton(onClick = {
-                            navController.popBackStack()
-                        }) {
-                            Icon(imageVector = Icons.Outlined.ArrowBack, contentDescription = null)
-                        }
-                    }
-                )
             }
         },
         bottomBar = {
             MyBottomNavigation(
                 navController = navController,
-                currentDestination = currentDestination
+                currentDestination = currentDestination,
+                items = itemsScreens
             )
         }) { innerPadding ->
         NavHost(
@@ -133,8 +151,9 @@ fun Navigation(
             composable(route = Screens.NavigationScreen.route) {
                 NavigationScreen(navController)
             }
-
-
+            composable(route = Screens.CollectionsScreen.route) {
+                CollectionsScreen()
+            }
         }
 
     }
@@ -145,16 +164,10 @@ fun Navigation(
 @Composable
 fun MyBottomNavigation(
     navController: NavController,
-    currentDestination: NavDestination?
+    currentDestination: NavDestination?,
+    items: List<Screens>
 ) {
-    val items = listOf(
-        Screens.NavigationScreen,
-        Screens.MainScreen,
-//        Screens.RandomScreen,
-//        Screens.PopularScreen,
-//        Screens.SearchScreen,
-        Screens.FavoriteScreen
-    )
+
 
     if (navController.currentDestination?.route in items.map { it.route }) {
         NavigationBar {

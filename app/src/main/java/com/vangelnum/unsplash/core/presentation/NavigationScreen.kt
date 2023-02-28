@@ -15,10 +15,10 @@ import androidx.compose.material.icons.outlined.Search
 import androidx.compose.material3.Card
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
-import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
+import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -67,17 +67,28 @@ fun NavigationScreen(
     ) {
 
         Spacer(modifier = Modifier.height(8.dp))
+
         OutlinedTextField(
+            enabled = false,
             value = textValue, onValueChange = {
                 textValue = it
-            }, modifier = Modifier.fillMaxWidth(), placeholder = {
+            }, modifier = Modifier.fillMaxWidth().clickable {
+                navController.navigate(Screens.SearchScreen.route)
+            },
+            placeholder = {
                 Text(text = "Search wallpapers")
             }, trailingIcon = {
-                IconButton(onClick = { textValue = "" }) {
-                    Icon(imageVector = Icons.Outlined.Search, contentDescription = "search")
-                }
-            }, singleLine = true
+                Icon(imageVector = Icons.Outlined.Search, contentDescription = "search")
+            },
+            colors = TextFieldDefaults.outlinedTextFieldColors(
+                disabledTextColor = MaterialTheme.colorScheme.onSurface,
+                disabledBorderColor = MaterialTheme.colorScheme.outline,
+                disabledPlaceholderColor = MaterialTheme.colorScheme.onSurfaceVariant,
+                disabledLabelColor = MaterialTheme.colorScheme.onSurfaceVariant,
+                disabledLeadingIconColor = MaterialTheme.colorScheme.onSurfaceVariant,
+                disabledTrailingIconColor = MaterialTheme.colorScheme.onSurfaceVariant)
         )
+
         items.forEach { res ->
             Text(
                 text = res.text,

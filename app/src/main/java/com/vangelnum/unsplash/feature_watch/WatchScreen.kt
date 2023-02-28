@@ -8,8 +8,10 @@ import android.os.Environment
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.Card
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.layout.ContentScale
 import androidx.hilt.navigation.compose.hiltViewModel
 import coil.compose.AsyncImage
 import com.vangelnum.unsplash.feature_favourite.domain.model.FavouriteItem
@@ -27,12 +29,14 @@ fun WatchPhoto(
             .fillMaxSize()
             .clickable {
                 viewModel.addPhoto(FavouriteItem(id!!, url!!))
-            }
+            },
+        shape = MaterialTheme.shapes.large,
     ) {
         AsyncImage(
             model = url,
             contentDescription = "photo",
-            modifier = Modifier.fillMaxSize()
+            modifier = Modifier.fillMaxSize(),
+            contentScale = ContentScale.Crop
         )
     }
 }

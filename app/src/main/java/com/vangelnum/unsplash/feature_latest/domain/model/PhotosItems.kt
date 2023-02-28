@@ -1,4 +1,4 @@
-package com.vangelnum.unsplash.feature_main.domain.model
+package com.vangelnum.unsplash.feature_latest.domain.model
 
 import com.vangelnum.unsplash.core.data.dtoMainRandomPopular.Urls
 

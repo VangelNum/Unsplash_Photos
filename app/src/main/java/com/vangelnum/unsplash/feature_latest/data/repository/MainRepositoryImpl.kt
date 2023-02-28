@@ -1,9 +1,9 @@
-package com.vangelnum.unsplash.feature_main.data.repository
+package com.vangelnum.unsplash.feature_latest.data.repository
 
-import com.vangelnum.unsplash.feature_main.data.api.ApiInterfaceMain
-import com.vangelnum.unsplash.feature_main.data.mapper.toNormalPhotos
-import com.vangelnum.unsplash.feature_main.domain.model.PhotosItems
-import com.vangelnum.unsplash.feature_main.domain.repository.MainRepository
+import com.vangelnum.unsplash.feature_latest.data.api.ApiInterfaceMain
+import com.vangelnum.unsplash.feature_latest.data.mapper.toNormalPhotos
+import com.vangelnum.unsplash.feature_latest.domain.model.PhotosItems
+import com.vangelnum.unsplash.feature_latest.domain.repository.MainRepository
 import javax.inject.Inject
 
 class MainRepositoryImpl @Inject constructor(

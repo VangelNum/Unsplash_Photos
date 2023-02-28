@@ -1,11 +1,11 @@
-package com.vangelnum.unsplash.feature_main.presentation
+package com.vangelnum.unsplash.feature_latest.presentation
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import androidx.paging.Pager
 import androidx.paging.PagingConfig
 import androidx.paging.cachedIn
-import com.vangelnum.unsplash.feature_main.domain.repository.MainRepository
+import com.vangelnum.unsplash.feature_latest.domain.repository.MainRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 

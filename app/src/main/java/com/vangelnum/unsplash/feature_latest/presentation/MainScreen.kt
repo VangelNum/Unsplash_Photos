@@ -1,4 +1,4 @@
-package com.vangelnum.unsplash.feature_main.presentation
+package com.vangelnum.unsplash.feature_latest.presentation
 
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.clickable
@@ -6,6 +6,7 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.lazy.staggeredgrid.LazyVerticalStaggeredGrid
 import androidx.compose.foundation.lazy.staggeredgrid.StaggeredGridCells
@@ -87,9 +88,11 @@ fun MainScreen(
                                         Box(
                                             modifier = Modifier
                                                 .height(300.dp)
+                                                .fillMaxWidth()
                                                 .placeholder(
                                                     visible = true,
                                                     color = Color(photo.color.toColorInt()),
+                                                    shape = RoundedCornerShape(4.dp),
                                                     highlight = PlaceholderHighlight.shimmer(
                                                         highlightColor = Color.White,
                                                     ),

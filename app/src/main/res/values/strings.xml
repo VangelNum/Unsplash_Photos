@@ -4,4 +4,7 @@
     <string name="enter_something">Введите текст</string>
     <string name="favourite_empty">Список избранного пуст</string>
     <string name="wallpaper">Wallpaper\n</string>
+    <string name="mobile_brends">Мобильные бренды</string>
+    <string name="colors">Цвета</string>
+    <string name="categories">Категории</string>
 </resources>

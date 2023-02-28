@@ -1,4 +1,4 @@
-package com.vangelnum.unsplash.feature_main.data.api
+package com.vangelnum.unsplash.feature_latest.data.api
 
 import com.vangelnum.unsplash.core.data.dtoMainRandomPopular.PhotosItemDto
 import com.vangelnum.unsplash.core.utils.Constants.API_KEY

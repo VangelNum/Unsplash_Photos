@@ -1,7 +1,7 @@
-package com.vangelnum.unsplash.feature_main.data.mapper
+package com.vangelnum.unsplash.feature_latest.data.mapper
 
 import com.vangelnum.unsplash.core.data.dtoMainRandomPopular.PhotosItemDto
-import com.vangelnum.unsplash.feature_main.domain.model.PhotosItems
+import com.vangelnum.unsplash.feature_latest.domain.model.PhotosItems
 
 
 fun PhotosItemDto.toNormalPhotos(): PhotosItems {

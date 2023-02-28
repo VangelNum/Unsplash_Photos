@@ -1,9 +1,9 @@
-package com.vangelnum.unsplash.feature_main.presentation
+package com.vangelnum.unsplash.feature_latest.presentation
 
 import androidx.paging.PagingSource
 import androidx.paging.PagingState
-import com.vangelnum.unsplash.feature_main.domain.model.PhotosItems
-import com.vangelnum.unsplash.feature_main.domain.repository.MainRepository
+import com.vangelnum.unsplash.feature_latest.domain.model.PhotosItems
+import com.vangelnum.unsplash.feature_latest.domain.repository.MainRepository
 
 class MainPagingSource(
     private val repository: MainRepository
