@@ -8,6 +8,7 @@ sealed class Screens(val icon: Int, val route: String, val name: String) {
     object PopularScreen: Screens(R.drawable.ic_baseline_local_fire_department_24,"popular_screen","Popular")
     object WatchPhotoScreen : Screens(R.drawable.ic_baseline_favorite_24, "watch_screen", "Watch")
     object SearchScreen: Screens(R.drawable.ic_outline_search_24,"search_screen","Search")
+    object SearchCollectionScreen: Screens(R.drawable.ic_outline_search_24,"search_collection","Search_collection")
 
     object NavigationScreen: Screens(R.drawable.ic_baseline_home_24,"main_screen","Main")
     object CollectionsScreen: Screens(R.drawable.baseline_collections_24,"collections","Collections")

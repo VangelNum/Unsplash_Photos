@@ -3,6 +3,7 @@ package com.vangelnum.unsplash.feature_collections.presentation
 import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -30,10 +31,12 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavController
 import com.vangelnum.unsplash.R
+import com.vangelnum.unsplash.core.presentation.navigation.Screens
 
 @Composable
-fun CollectionsScreen() {
+fun CollectionsScreen(navController: NavController) {
 
     val mobileBrandsItems = listOf(
         CollectionItems(R.drawable.asus, "Asus"),
@@ -57,16 +60,16 @@ fun CollectionsScreen() {
     )
 
     val lazyGridItems = listOf(
-        CollectionItems(R.drawable.asus, "Asus"),
-        CollectionItems(R.drawable.google, "Google"),
-        CollectionItems(R.drawable.htc, "HTC"),
-        CollectionItems(R.drawable.huawei, "Huawei"),
-        CollectionItems(R.drawable.iphone, "Iphone"),
-        CollectionItems(R.drawable.lenovo, "Lenovo"),
-        CollectionItems(R.drawable.oneplus, "OnePlus"),
-        CollectionItems(R.drawable.samsung, "Samsung"),
-        CollectionItems(R.drawable.xiaomi, "Xiaomi"),
-        CollectionItems(R.drawable.zte, "ZTE")
+        CollectionItems(R.drawable.aabstract, "Abstract"),
+        CollectionItems(R.drawable.animal, "Animal"),
+        CollectionItems(R.drawable.anime2, "Anime"),
+        CollectionItems(R.drawable.car, "Car"),
+        CollectionItems(R.drawable.cartoon, "Cartoon"),
+        CollectionItems(R.drawable.city, "City"),
+        CollectionItems(R.drawable.colorful, "Colorful"),
+        CollectionItems(R.drawable.horror, "Horror"),
+        CollectionItems(R.drawable.flower, "Flower"),
+        CollectionItems(R.drawable.food, "Food")
     )
 
     LazyColumn(
@@ -87,7 +90,7 @@ fun CollectionsScreen() {
                 contentPadding = PaddingValues(start = 16.dp, end = 16.dp)
             ) {
                 items(mobileBrandsItems) { photo ->
-                    BrandCard(photo = photo)
+                    BrandCard(photo = photo, navController)
                 }
             }
         }
@@ -126,11 +129,15 @@ fun CollectionsScreen() {
 fun VerticalGrid(rows: Int, items: List<CollectionItems>) {
     val chunkedItems = items.chunked(rows)
     Column(
-        Modifier.fillMaxWidth().padding(start = 16.dp, end = 16.dp, bottom = 16.dp)
+        Modifier
+            .fillMaxWidth()
+            .padding(start = 16.dp, end = 16.dp, bottom = 16.dp)
     ) {
         for (rowItems in chunkedItems) {
             Row(
-                Modifier.fillMaxWidth().padding(vertical = 8.dp),
+                Modifier
+                    .fillMaxWidth()
+                    .padding(vertical = 8.dp),
                 horizontalArrangement = Arrangement.spacedBy(16.dp),
             ) {
                 for (item in rowItems) {
@@ -178,7 +185,7 @@ fun VerticalGrid(rows: Int, items: List<CollectionItems>) {
 
 
 @Composable
-fun BrandCard(photo: CollectionItems) {
+fun BrandCard(photo: CollectionItems, navController: NavController) {
     Card(
         shape = MaterialTheme.shapes.medium,
         elevation = CardDefaults.cardElevation(10.dp)
@@ -186,7 +193,10 @@ fun BrandCard(photo: CollectionItems) {
         Box(
             modifier = Modifier
                 .height(100.dp)
-                .width(140.dp),
+                .width(140.dp)
+                .clickable {
+                    navController.navigate(Screens.SearchCollectionScreen.withArgs(photo.name))
+                },
         ) {
             Image(
                 painter = painterResource(id = photo.photoId),

@@ -1,6 +1,7 @@
 package com.vangelnum.unsplash.feature_popular.presentation
 
 import androidx.compose.foundation.ExperimentalFoundationApi
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.staggeredgrid.LazyVerticalStaggeredGrid
 import androidx.compose.foundation.lazy.staggeredgrid.StaggeredGridCells
@@ -16,31 +17,36 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.core.graphics.toColorInt
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.navigation.NavController
 import androidx.paging.LoadState
 import androidx.paging.compose.collectAsLazyPagingItems
 import coil.compose.AsyncImagePainter
 import coil.compose.SubcomposeAsyncImage
 import coil.compose.SubcomposeAsyncImageContent
 import com.google.accompanist.placeholder.PlaceholderHighlight
-import com.google.accompanist.placeholder.material3.placeholder
+import com.google.accompanist.placeholder.placeholder
 import com.google.accompanist.placeholder.shimmer
 import com.google.accompanist.swiperefresh.SwipeRefresh
 import com.google.accompanist.swiperefresh.rememberSwipeRefreshState
 import com.vangelnum.unsplash.R
 import com.vangelnum.unsplash.core.lazy_grid_extension.items
+import com.vangelnum.unsplash.core.presentation.navigation.Screens
+import java.net.URLEncoder
+import java.nio.charset.StandardCharsets
 
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
 fun PopularScreen(
+    navController: NavController,
     viewModel: PopularViewModel = hiltViewModel(),
 ) {
-    val photos = viewModel.pagerPopular.collectAsLazyPagingItems()
+    val lazyPagingItems = viewModel.pagerPopular.collectAsLazyPagingItems()
 
     val state = rememberSwipeRefreshState(
-        isRefreshing = photos.loadState.refresh is LoadState.Loading,
+        isRefreshing = lazyPagingItems.loadState.refresh is LoadState.Loading,
     )
 
-    SwipeRefresh(state = state, onRefresh = { photos.refresh() }) {
+    SwipeRefresh(state = state, onRefresh = { lazyPagingItems.refresh() }) {
         LazyVerticalStaggeredGrid(
             columns = StaggeredGridCells.Adaptive(128.dp),
             modifier = Modifier.fillMaxSize(),
@@ -48,10 +54,22 @@ fun PopularScreen(
             horizontalArrangement = Arrangement.spacedBy(8.dp),
             contentPadding = PaddingValues(horizontal = 8.dp, vertical = 8.dp)
         ) {
-            if (photos.loadState.refresh is LoadState.NotLoading) {
-                items(photos) { photo ->
+            if (lazyPagingItems.loadState.refresh is LoadState.NotLoading) {
+                items(lazyPagingItems) { photo ->
                     Card(
                         shape = RoundedCornerShape(16.dp),
+                        modifier = Modifier.clickable {
+                            val encodedUrl = URLEncoder.encode(
+                                photo?.urls?.full,
+                                StandardCharsets.UTF_8.toString()
+                            )
+                            navController.navigate(
+                                Screens.WatchPhotoScreen.withArgs(
+                                    encodedUrl,
+                                    photo!!.id
+                                )
+                            )
+                        }
                     ) {
                         if (photo != null) {
                             SubcomposeAsyncImage(

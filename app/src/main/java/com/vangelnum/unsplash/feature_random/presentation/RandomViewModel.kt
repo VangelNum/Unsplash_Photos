@@ -27,19 +27,7 @@ class RandomViewModel @Inject constructor(
     fun getRandomPhotos(count: Int) {
         viewModelScope.launch {
             repository.getRandomPhotos(count).collect {
-                when (it) {
-                    is Resource.Success -> {
-                        _randomState.value = Resource.Success(it.data)
-                    }
-
-                    is Resource.Error -> {
-                        _randomState.value = Resource.Error(it.message.toString())
-                    }
-
-                    is Resource.Loading -> {
-                        _randomState.value = Resource.Loading()
-                    }
-                }
+                _randomState.value = it
             }
         }
     }

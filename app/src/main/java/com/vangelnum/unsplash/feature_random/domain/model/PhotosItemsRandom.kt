@@ -1,12 +1,30 @@
 package com.vangelnum.unsplash.feature_random.domain.model
 
-import com.vangelnum.unsplash.core.data.dtoMainRandomPopular.Urls
-
 
 data class PhotosItemsRandom(
     val color: String,
     val height: Int,
     val width: Int,
     val id: String,
-    val urls: Urls
+    val urls: UrlsRandom,
+    val likes: Int,
+    val updated_at: String,
+    val user: UserRandom
+)
+
+data class UserRandom(
+    val profile_image: ProfileImageRandom,
+    val username: String
+)
+
+data class ProfileImageRandom(
+    val large: String,
+    val medium: String,
+    val small: String
+)
+
+data class UrlsRandom(
+    val full: String,
+    val raw: String,
+    val regular: String,
 )

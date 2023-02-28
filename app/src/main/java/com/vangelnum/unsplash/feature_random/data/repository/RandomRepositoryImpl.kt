@@ -15,8 +15,8 @@ class RandomRepositoryImpl @Inject constructor(
     override fun getRandomPhotos(count: Int): Flow<Resource<List<PhotosItemsRandom>>> = flow {
         try {
             emit(Resource.Loading())
-            val response = api.getRandomPhotos(count).map {
-                it.toNormalRandomPhotos()
+            val response = api.getRandomPhotos(count).map { dto->
+                dto.toNormalRandomPhotos()
             }
             emit(Resource.Success(response))
         } catch (e: Exception) {

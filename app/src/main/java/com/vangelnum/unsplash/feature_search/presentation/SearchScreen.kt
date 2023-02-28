@@ -81,7 +81,6 @@ fun SearchScreen(
                 },
                 maxLines = 1,
                 modifier = Modifier.fillMaxWidth(),
-                shape = RoundedCornerShape(16.dp),
                 label = {
                     Text(text = stringResource(id = R.string.enter_something))
                 },

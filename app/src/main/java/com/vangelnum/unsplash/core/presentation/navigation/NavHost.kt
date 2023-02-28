@@ -35,6 +35,7 @@ import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
 import com.vangelnum.unsplash.R
 import com.vangelnum.unsplash.core.presentation.NavigationScreen
+import com.vangelnum.unsplash.feature_collections.presentation.CollectionSearchScreen
 import com.vangelnum.unsplash.feature_collections.presentation.CollectionsScreen
 import com.vangelnum.unsplash.feature_latest.presentation.MainScreen
 import com.vangelnum.unsplash.feature_popular.presentation.PopularScreen
@@ -141,7 +142,7 @@ fun Navigation(
                 WatchPhoto(entry.arguments?.getString("url"), entry.arguments?.getString("id"))
             }
             composable(route = Screens.PopularScreen.route) {
-                PopularScreen()
+                PopularScreen(navController)
             }
             composable(
                 route = Screens.SearchScreen.route
@@ -152,7 +153,19 @@ fun Navigation(
                 NavigationScreen(navController)
             }
             composable(route = Screens.CollectionsScreen.route) {
-                CollectionsScreen()
+                CollectionsScreen(navController)
+            }
+            composable(route = Screens.SearchCollectionScreen.route + "/{query}",
+                arguments = listOf(
+                    navArgument("query") {
+                        NavType.StringType
+                        nullable = false
+                    }
+                )) { entry ->
+                CollectionSearchScreen(
+                    query = entry.arguments?.getString("query"),
+                    navController = navController
+                )
             }
         }
 

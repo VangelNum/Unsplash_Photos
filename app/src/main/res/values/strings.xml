@@ -7,4 +7,5 @@
     <string name="mobile_brends">Мобильные бренды</string>
     <string name="colors">Цвета</string>
     <string name="categories">Категории</string>
+    <string name="error">Error\n</string>
 </resources>
