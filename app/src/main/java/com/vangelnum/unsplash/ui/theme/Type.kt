@@ -38,6 +38,7 @@ val Typography = Typography(
     ),
     titleMedium = TextStyle(
         fontFamily = UbuntyFonts,
+        fontSize = 16.sp,
         fontWeight = FontWeight.Normal,
         letterSpacing = 0.sp
     ),

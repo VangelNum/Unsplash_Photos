@@ -17,7 +17,7 @@ fun PhotosItemDto.toNormalRandomPhotos(): PhotosItemsRandom {
         id = id,
         urls = urls.toDataModel(),
         likes = likes,
-        updated_at = updated_at,
+        created_at = created_at,
         user = user.toDataModel()
     )
 }
@@ -33,7 +33,8 @@ fun Urls.toDataModel(): UrlsRandom {
 fun User.toDataModel(): UserRandom {
     return UserRandom(
         username = username,
-        profile_image = profile_image.toDataModel()
+        profile_image = profile_image.toDataModel(),
+        location = location ?: "Unknown place"
     )
 }
 

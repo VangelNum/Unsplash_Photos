@@ -8,13 +8,14 @@ data class PhotosItemsRandom(
     val id: String,
     val urls: UrlsRandom,
     val likes: Int,
-    val updated_at: String,
+    val created_at: String,
     val user: UserRandom
 )
 
 data class UserRandom(
     val profile_image: ProfileImageRandom,
-    val username: String
+    val username: String,
+    val location: String
 )
 
 data class ProfileImageRandom(
