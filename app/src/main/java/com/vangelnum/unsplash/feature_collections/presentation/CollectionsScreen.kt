@@ -52,11 +52,11 @@ fun CollectionsScreen(navController: NavController) {
     )
 
     val colorItems = listOf(
-        Color.Blue,
-        Color.Red,
-        Color.Green,
-        Color.Yellow,
-        Color.Magenta
+        ColorItems(Color.Blue, "blue"),
+        ColorItems(Color.Red, "red"),
+        ColorItems(Color.Green, "green"),
+        ColorItems(Color.Yellow, "yellow"),
+        ColorItems(Color.Magenta, "magenta"),
     )
 
     val lazyGridItems = listOf(
@@ -108,7 +108,7 @@ fun CollectionsScreen(navController: NavController) {
                 contentPadding = PaddingValues(start = 16.dp, end = 16.dp)
             ) {
                 items(colorItems) { color ->
-                    CanvasCards(color)
+                    CanvasCards(color, navController)
                 }
             }
         }
@@ -119,14 +119,14 @@ fun CollectionsScreen(navController: NavController) {
             )
         }
         item {
-            VerticalGrid(rows = 2, items = lazyGridItems)
+            VerticalGrid(rows = 2, items = lazyGridItems, navController = navController)
         }
     }
 }
 
 
 @Composable
-fun VerticalGrid(rows: Int, items: List<CollectionItems>) {
+fun VerticalGrid(rows: Int, items: List<CollectionItems>, navController: NavController) {
     val chunkedItems = items.chunked(rows)
     Column(
         Modifier
@@ -144,7 +144,11 @@ fun VerticalGrid(rows: Int, items: List<CollectionItems>) {
                     Card(
                         shape = MaterialTheme.shapes.medium,
                         elevation = CardDefaults.cardElevation(10.dp),
-                        modifier = Modifier.weight(1f)
+                        modifier = Modifier
+                            .weight(1f)
+                            .clickable {
+                                navController.navigate(Screens.SearchCollectionScreen.withArgs(item.name))
+                            }
                     ) {
                         Box(
                             modifier = Modifier.height(120.dp)
@@ -230,8 +234,12 @@ fun BrandCard(photo: CollectionItems, navController: NavController) {
 }
 
 @Composable
-fun CanvasCards(color: Color) {
-    Canvas(modifier = Modifier.size(80.dp)) {
-        drawCircle(color)
+fun CanvasCards(color: ColorItems, navController: NavController) {
+    Canvas(modifier = Modifier
+        .size(80.dp)
+        .clickable {
+            navController.navigate(Screens.SearchCollectionScreen.withArgs(color.name))
+        }) {
+        drawCircle(color.color)
     }
 }

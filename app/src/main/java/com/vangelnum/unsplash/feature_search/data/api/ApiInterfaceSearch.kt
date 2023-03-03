@@ -12,4 +12,6 @@ interface ApiInterfaceSearch {
         @Query("query") query: String,
         @Query("per_page") per_page: Int
     ): SearchItemsDto
+
+
 }

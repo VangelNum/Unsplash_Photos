@@ -7,7 +7,8 @@ import com.vangelnum.unsplash.feature_search.domain.repository.SearchRepository
 
 class SearchPagingSource(
     private val repository: SearchRepository,
-    private val query: String
+    private val query: String,
+
 ) : PagingSource<Int, Result>() {
     override fun getRefreshKey(state: PagingState<Int, Result>): Int? {
         return state.anchorPosition?.let { anchorPosition ->

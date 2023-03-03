@@ -74,12 +74,11 @@ fun RandomScreen(
                             )
                         }
                 ) {
-
-
                     Card(
                         shape = MaterialTheme.shapes.extraLarge,
                         modifier = Modifier
-                            .fillMaxWidth().fillMaxHeight(0.5f)
+                            .fillMaxWidth()
+                            .fillMaxHeight(0.5f)
                     ) {
                         AsyncImage(
                             model = randomStates.value.data?.get(page)?.urls?.regular,

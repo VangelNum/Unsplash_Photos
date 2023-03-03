@@ -13,4 +13,5 @@ class SearchRepositoryImpl @Inject constructor(
         return api.getSearchPhotos(page, query, per_page).toNormalSearch()
     }
 
+
 }

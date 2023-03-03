@@ -88,7 +88,7 @@ fun CollectionSearchScreen(
                         }
                     ) {
                         SubcomposeAsyncImage(
-                            model = photo.urls.full,
+                            model = photo.urls.regular,
                             contentDescription = "photo",
                             contentScale = ContentScale.FillWidth,
                         ) {
