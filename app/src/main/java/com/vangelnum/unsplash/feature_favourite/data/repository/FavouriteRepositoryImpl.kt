@@ -30,6 +30,6 @@ class FavouriteRepositoryImpl @Inject constructor(
     }
 
     override suspend fun deletePhoto(photo: FavouriteItem) {
-        dao.addPhoto(photo)
+        dao.deletePhoto(photo)
     }
 }

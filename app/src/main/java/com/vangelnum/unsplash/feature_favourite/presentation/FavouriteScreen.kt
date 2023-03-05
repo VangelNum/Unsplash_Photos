@@ -22,12 +22,14 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import coil.compose.SubcomposeAsyncImage
+import coil.compose.SubcomposeAsyncImageContent
 import com.vangelnum.unsplash.R
 import com.vangelnum.unsplash.core.common.Resource
 import com.vangelnum.unsplash.core.presentation.navigation.Screens
@@ -91,15 +93,14 @@ fun FavouritePhotosLazyGrid(
         ) {
             items(allFavouritePhotos) { photo ->
                 Card(
-                    modifier = Modifier.height(350.dp),
-                    shape = RoundedCornerShape(25.dp)
+                    shape = RoundedCornerShape(25.dp),
+                    modifier = Modifier.fillMaxWidth()
+                    .height(350.dp)
                 ) {
                     SubcomposeAsyncImage(
                         model = photo.urlPhoto,
                         contentDescription = "photo",
                         modifier = Modifier
-                            .height(350.dp)
-                            .fillMaxWidth()
                             .clickable {
                                 val encodedUrl =
                                     URLEncoder.encode(
@@ -115,29 +116,21 @@ fun FavouritePhotosLazyGrid(
                             },
                         contentScale = ContentScale.Crop,
                         loading = {
-                            Box(
-                                modifier = Modifier.fillMaxSize(),
-                                contentAlignment = Alignment.Center
-                            ) {
+                            Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
                                 CircularProgressIndicator()
+                            }
+                        },
+                        success = {
+                            SubcomposeAsyncImageContent()
+                            Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.BottomEnd) {
+                                IconButton(onClick = {
+                                    viewModel.deletePhoto(FavouriteItem(photo.idPhoto,photo.urlPhoto))
+                                }) {
+                                    Icon(tint = Color.White,imageVector = Icons.Filled.Delete, contentDescription = "delete")
+                                }
                             }
                         }
                     )
-                    Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.BottomEnd) {
-                        IconButton(onClick = {
-                            viewModel.deletePhoto(
-                                FavouriteItem(
-                                    photo.idPhoto,
-                                    photo.urlPhoto
-                                )
-                            )
-                        }) {
-                            Icon(
-                                Icons.Filled.Delete,
-                                contentDescription = "delete"
-                            )
-                        }
-                    }
                 }
             }
         }
@@ -146,4 +139,5 @@ fun FavouritePhotosLazyGrid(
             Text(text = stringResource(id = R.string.favourite_empty))
         }
     }
+
 }

@@ -1,5 +1,6 @@
 package com.vangelnum.unsplash.feature_random.presentation
 
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.icons.Icons
@@ -18,18 +19,23 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.util.lerp
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.navigation.NavController
 import coil.compose.AsyncImage
 import coil.compose.SubcomposeAsyncImage
 import com.google.accompanist.pager.ExperimentalPagerApi
 import com.google.accompanist.pager.HorizontalPager
 import com.google.accompanist.pager.calculateCurrentOffsetForPage
 import com.vangelnum.unsplash.core.common.Resource
+import com.vangelnum.unsplash.core.presentation.navigation.Screens
+import java.net.URLEncoder
+import java.nio.charset.StandardCharsets
 import kotlin.math.absoluteValue
 
 
 @OptIn(ExperimentalPagerApi::class)
 @Composable
 fun RandomScreen(
+    navController: NavController,
     viewModel: RandomViewModel = hiltViewModel()
 ) {
 
@@ -78,7 +84,19 @@ fun RandomScreen(
                         shape = MaterialTheme.shapes.extraLarge,
                         modifier = Modifier
                             .fillMaxWidth()
-                            .fillMaxHeight(0.5f)
+                            .fillMaxHeight(0.5f).clickable {
+
+                                val encodedUrl = URLEncoder.encode(
+                                    randomStates.value.data?.get(page)?.urls?.regular,
+                                    StandardCharsets.UTF_8.toString()
+                                )
+                                navController.navigate(
+                                    Screens.WatchPhotoScreen.withArgs(
+                                        encodedUrl,
+                                        randomStates.value.data?.get(page)?.id!!
+                                    )
+                                )
+                            }
                     ) {
                         AsyncImage(
                             model = randomStates.value.data?.get(page)?.urls?.regular,

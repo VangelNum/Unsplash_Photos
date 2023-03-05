@@ -6,6 +6,7 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.ArrowBack
 import androidx.compose.material.icons.outlined.Menu
+import androidx.compose.material.icons.outlined.MoreVert
 import androidx.compose.material3.CenterAlignedTopAppBar
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
@@ -15,8 +16,12 @@ import androidx.compose.material3.NavigationBar
 import androidx.compose.material3.NavigationBarItem
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
+import androidx.compose.material3.rememberSheetState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.saveable.rememberSaveable
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
@@ -41,7 +46,7 @@ import com.vangelnum.unsplash.feature_latest.presentation.MainScreen
 import com.vangelnum.unsplash.feature_popular.presentation.PopularScreen
 import com.vangelnum.unsplash.feature_random.presentation.RandomScreen
 import com.vangelnum.unsplash.feature_search.presentation.SearchScreen
-import com.vangelnum.unsplash.feature_watch.WatchPhoto
+import com.vangelnum.unsplash.feature_watch.WatchPhotoScreen
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -58,6 +63,11 @@ fun Navigation(
         Screens.FavoriteScreen
     )
 
+    var openBottomSheet by rememberSaveable {
+        mutableStateOf(false)
+    }
+    val bottomSheetState = rememberSheetState(skipHalfExpanded = true)
+
     Scaffold(
         topBar = {
             val currentRoute = navController.currentDestination?.route
@@ -65,6 +75,7 @@ fun Navigation(
                 it.route
             }
             if (currentRoute != null && currentRoute !in itemsRoutes) {
+
                 CenterAlignedTopAppBar(
                     title = {
                         Text(
@@ -79,6 +90,18 @@ fun Navigation(
                             navController.popBackStack()
                         }) {
                             Icon(imageVector = Icons.Outlined.ArrowBack, contentDescription = null)
+                        }
+                    },
+                    actions = {
+                        if (currentRoute == Screens.WatchPhotoScreen.route + "/{url}" + "/{id}") {
+                            IconButton(onClick = {
+                                openBottomSheet = true
+                            }) {
+                                Icon(
+                                    imageVector = Icons.Outlined.MoreVert,
+                                    contentDescription = "more"
+                                )
+                            }
                         }
                     }
                 )
@@ -121,7 +144,7 @@ fun Navigation(
                 MainScreen(navController = navController)
             }
             composable(route = Screens.RandomScreen.route) {
-                RandomScreen()
+                RandomScreen(navController)
             }
             composable(route = Screens.FavoriteScreen.route) {
                 FavouriteScreen(navController = navController)
@@ -139,7 +162,13 @@ fun Navigation(
                     }
                 )
             ) { entry ->
-                WatchPhoto(entry.arguments?.getString("url"), entry.arguments?.getString("id"))
+                WatchPhotoScreen(
+                    entry.arguments?.getString("url"),
+                    entry.arguments?.getString("id"),
+                    openBottomSheet,
+                    bottomSheetState,
+                    onDismiss = { openBottomSheet = false },
+                )
             }
             composable(route = Screens.PopularScreen.route) {
                 PopularScreen(navController)
