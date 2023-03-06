@@ -27,6 +27,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.vangelnum.unsplash.R
@@ -43,17 +44,17 @@ fun NavigationScreen(
 
     val items = listOf(
         NavigationItem(
-            text = "Latest",
+            text = stringResource(id = R.string.latest),
             image = R.drawable.exampleimage,
             routeMain = Screens.MainScreen.route
         ),
         NavigationItem(
-            text = "Popular",
+            text = stringResource(id = R.string.popular),
             image = R.drawable.exampleimage2,
             routeMain = Screens.PopularScreen.route
         ),
         NavigationItem(
-            text = "Random",
+            text = stringResource(id = R.string.random),
             image = R.drawable.exampleimage3,
             routeMain = Screens.RandomScreen.route
         )
@@ -65,16 +66,16 @@ fun NavigationScreen(
             .verticalScroll(rememberScrollState()),
         verticalArrangement = Arrangement.spacedBy(16.dp)
     ) {
-
         Spacer(modifier = Modifier.height(8.dp))
-
         OutlinedTextField(
             enabled = false,
             value = textValue, onValueChange = {
                 textValue = it
-            }, modifier = Modifier.fillMaxWidth().clickable {
-                navController.navigate(Screens.SearchScreen.route)
-            },
+            }, modifier = Modifier
+                .fillMaxWidth()
+                .clickable {
+                    navController.navigate(Screens.SearchScreen.route)
+                },
             placeholder = {
                 Text(text = "Search wallpapers")
             }, trailingIcon = {

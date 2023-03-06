@@ -1,4 +1,4 @@
-package com.vangelnum.unsplash.feature_watch
+package com.vangelnum.unsplash.feature_watch.presentation
 
 import android.app.DownloadManager
 import android.app.WallpaperManager
@@ -34,6 +34,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.hilt.navigation.compose.hiltViewModel
 import coil.compose.SubcomposeAsyncImage
+import coil.compose.SubcomposeAsyncImageContent
 import com.vangelnum.unsplash.R
 import com.vangelnum.unsplash.feature_favourite.domain.model.FavouriteItem
 import com.vangelnum.unsplash.feature_favourite.presentation.FavouriteViewModel
@@ -52,6 +53,7 @@ fun WatchPhotoScreen(
     id: String?,
     openBottomSheet: Boolean,
     bottomSheetState: SheetState,
+    watchPhotoViewModel: WatchPhotoViewModel,
     onDismiss: () -> Unit,
     viewModel: FavouriteViewModel = hiltViewModel()
 ) {
@@ -78,9 +80,16 @@ fun WatchPhotoScreen(
             modifier = Modifier.fillMaxSize(),
             contentScale = ContentScale.Crop,
             loading = {
+                watchPhotoViewModel.triggerStates(0F, 0F)
                 Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
                     CircularProgressIndicator()
                 }
+            },
+            success = {
+                val height = painter.intrinsicSize.height
+                val width = painter.intrinsicSize.width
+                watchPhotoViewModel.triggerStates(height, width)
+                SubcomposeAsyncImageContent()
             }
         )
     }

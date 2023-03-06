@@ -27,5 +27,4 @@ class SearchViewModel @Inject constructor(
             SearchPagingSource(repository, query)
         }.flow.cachedIn(viewModelScope)
     }
-
 }

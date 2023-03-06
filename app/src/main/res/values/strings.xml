@@ -16,4 +16,9 @@
     <string name="established">Фото установлено!</string>
     <string name="wait_wallpaper">Wait, wallpaper set</string>
     <string name="search">Search</string>
+    <string name="latest">Latest</string>
+    <string name="popular">Popular</string>
+    <string name="random">Random</string>
+    <string name="vk_com_vangelnum">"<u>VK.COM/VANGELNUM</u>"</string>
+    <string name="gmail_vangelnum">"<u>VANGELNUM@GMAIL.COM</u>"</string>
 </resources>

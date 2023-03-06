@@ -14,6 +14,8 @@ sealed class Screens(val icon: Int, val route: String, val name: String) {
     object CollectionsScreen: Screens(R.drawable.baseline_collections_24,"collections","Collections")
     object FavoriteScreen : Screens(R.drawable.ic_baseline_favorite_24, "favorite_screen","Favourite")
 
+    object ContactScreen : Screens(R.drawable.ic_baseline_favorite_24, "contact_screen","Contact")
+
     fun withArgs(vararg args: String): String {
         return buildString {
             append(route)
