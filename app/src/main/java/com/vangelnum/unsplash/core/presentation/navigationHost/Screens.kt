@@ -1,4 +1,4 @@
-package com.vangelnum.unsplash.core.presentation.navigation
+package com.vangelnum.unsplash.core.presentation.navigationHost
 
 import com.vangelnum.unsplash.R
 

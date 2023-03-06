@@ -38,7 +38,7 @@ import com.google.accompanist.swiperefresh.SwipeRefresh
 import com.google.accompanist.swiperefresh.rememberSwipeRefreshState
 import com.vangelnum.unsplash.R
 import com.vangelnum.unsplash.core.lazy_grid_extension.items
-import com.vangelnum.unsplash.core.presentation.navigation.Screens
+import com.vangelnum.unsplash.core.presentation.navigationHost.Screens
 import com.vangelnum.unsplash.feature_search.presentation.SearchViewModel
 import java.net.URLEncoder
 import java.nio.charset.StandardCharsets

@@ -1,4 +1,4 @@
-package com.vangelnum.unsplash.core.presentation
+package com.vangelnum.unsplash.feature_main.presentation
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
@@ -31,7 +31,8 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.vangelnum.unsplash.R
-import com.vangelnum.unsplash.core.presentation.navigation.Screens
+import com.vangelnum.unsplash.core.presentation.navigationHost.Screens
+import com.vangelnum.unsplash.feature_main.data.NavigationItem
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable

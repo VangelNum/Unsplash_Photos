@@ -58,7 +58,7 @@ import com.google.accompanist.placeholder.placeholder
 import com.google.accompanist.placeholder.shimmer
 import com.vangelnum.unsplash.R
 import com.vangelnum.unsplash.core.lazy_grid_extension.items
-import com.vangelnum.unsplash.core.presentation.navigation.Screens
+import com.vangelnum.unsplash.core.presentation.navigationHost.Screens
 import java.net.URLEncoder
 import java.nio.charset.StandardCharsets
 

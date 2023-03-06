@@ -26,7 +26,7 @@ import com.google.accompanist.pager.ExperimentalPagerApi
 import com.google.accompanist.pager.HorizontalPager
 import com.google.accompanist.pager.calculateCurrentOffsetForPage
 import com.vangelnum.unsplash.core.common.Resource
-import com.vangelnum.unsplash.core.presentation.navigation.Screens
+import com.vangelnum.unsplash.core.presentation.navigationHost.Screens
 import java.net.URLEncoder
 import java.nio.charset.StandardCharsets
 import kotlin.math.absoluteValue

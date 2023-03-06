@@ -1,4 +1,4 @@
-package com.vangelnum.unsplash.core.presentation
+package com.vangelnum.unsplash.core.presentation.drawer_layout
 
 import android.content.Context
 import android.content.Intent
@@ -32,7 +32,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import androidx.navigation.navOptions
-import com.vangelnum.unsplash.core.presentation.navigation.Screens
+import com.vangelnum.unsplash.core.presentation.navigationHost.Screens
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
 
@@ -67,12 +67,12 @@ fun DrawerHeader() {
 fun DrawerBody(navController: NavController, drawerState: DrawerState) {
 
     val items = listOf(
-        MenuItems.Contacts,
-        MenuItems.Share,
-        MenuItems.SoundBoard,
-        MenuItems.DrumPad,
-        MenuItems.Wallpaper,
-        MenuItems.Pizza
+        DrawerItems.Contacts,
+        DrawerItems.Share,
+        DrawerItems.SoundBoard,
+        DrawerItems.DrumPad,
+        DrawerItems.Wallpaper,
+        DrawerItems.Pizza
     )
     val context = LocalContext.current
     val scope = rememberCoroutineScope()
@@ -104,14 +104,14 @@ fun DrawerBody(navController: NavController, drawerState: DrawerState) {
 
 
 fun onEvent(
-    title: MenuItems,
+    title: DrawerItems,
     navController: NavController,
     context: Context,
     scope: CoroutineScope,
     drawerState: DrawerState
 ) {
     when (title) {
-        is MenuItems.Share -> {
+        is DrawerItems.Share -> {
             val sendIntent: Intent = Intent().apply {
                 action = Intent.ACTION_SEND
                 putExtra(Intent.EXTRA_TITLE, "Спасибо за то, что поделился приложением! ❤")
@@ -124,21 +124,21 @@ fun onEvent(
             context.startActivity(Intent.createChooser(sendIntent, "Share..."))
         }
 
-        is MenuItems.SoundBoard -> {
+        is DrawerItems.SoundBoard -> {
             val intent = Intent(Intent.ACTION_VIEW)
             intent.data =
                 Uri.parse("https://play.google.com/store/apps/details?id=com.zxcursedsoundboard.apk")
             context.startActivity(intent)
         }
 
-        is MenuItems.DrumPad -> {
+        is DrawerItems.DrumPad -> {
             val intent = Intent(Intent.ACTION_VIEW)
             intent.data =
                 Uri.parse("https://play.google.com/store/apps/details?id=com.vangelnum.drumpad")
             context.startActivity(intent)
         }
 
-        is MenuItems.Contacts -> {
+        is DrawerItems.Contacts -> {
             scope.launch {
                 drawerState.close()
             }
@@ -146,13 +146,13 @@ fun onEvent(
                 launchSingleTop = true
             })
         }
-        is MenuItems.Pizza ->{
+        is DrawerItems.Pizza ->{
             val intent = Intent(Intent.ACTION_VIEW)
             intent.data =
                 Uri.parse("https://play.google.com/store/apps/details?id=com.vangelnum.pizza")
             context.startActivity(intent)
         }
-        is MenuItems.Wallpaper ->{
+        is DrawerItems.Wallpaper ->{
             val intent = Intent(Intent.ACTION_VIEW)
             intent.data =
                 Uri.parse("https://play.google.com/store/apps/details?id=com.zxcursed.wallpaper")

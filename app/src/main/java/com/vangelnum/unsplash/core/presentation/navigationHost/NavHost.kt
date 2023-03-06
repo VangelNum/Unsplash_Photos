@@ -1,4 +1,4 @@
-package com.vangelnum.unsplash.core.presentation.navigation
+package com.vangelnum.unsplash.core.presentation.navigationHost
 
 import FavouriteScreen
 import androidx.activity.compose.BackHandler
@@ -8,7 +8,6 @@ import androidx.compose.animation.core.tween
 import androidx.compose.animation.expandHorizontally
 import androidx.compose.animation.fadeIn
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.ArrowBack
 import androidx.compose.material.icons.outlined.Menu
@@ -21,8 +20,6 @@ import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.ModalDrawerSheet
 import androidx.compose.material3.ModalNavigationDrawer
-import androidx.compose.material3.NavigationBar
-import androidx.compose.material3.NavigationBarItem
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.rememberDrawerState
@@ -35,15 +32,9 @@ import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextOverflow
-import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
-import androidx.navigation.NavController
-import androidx.navigation.NavDestination
-import androidx.navigation.NavDestination.Companion.hierarchy
-import androidx.navigation.NavGraph.Companion.findStartDestination
 import androidx.navigation.NavHostController
 import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
@@ -52,13 +43,14 @@ import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
 import com.vangelnum.unsplash.R
-import com.vangelnum.unsplash.core.presentation.DrawerBody
-import com.vangelnum.unsplash.core.presentation.DrawerHeader
-import com.vangelnum.unsplash.core.presentation.NavigationScreen
+import com.vangelnum.unsplash.core.presentation.bottom_navigation.MyBottomNavigation
+import com.vangelnum.unsplash.core.presentation.drawer_layout.DrawerBody
+import com.vangelnum.unsplash.core.presentation.drawer_layout.DrawerHeader
 import com.vangelnum.unsplash.feature_collections.presentation.CollectionSearchScreen
 import com.vangelnum.unsplash.feature_collections.presentation.CollectionsScreen
 import com.vangelnum.unsplash.feature_contact.presentation.ContactScreen
 import com.vangelnum.unsplash.feature_latest.presentation.MainScreen
+import com.vangelnum.unsplash.feature_main.presentation.NavigationScreen
 import com.vangelnum.unsplash.feature_popular.presentation.PopularScreen
 import com.vangelnum.unsplash.feature_random.presentation.RandomScreen
 import com.vangelnum.unsplash.feature_search.presentation.SearchScreen
@@ -97,7 +89,7 @@ fun Navigation(
         drawerState = drawerState,
         drawerContent = {
             if (drawerState.isOpen) {
-                BackHandler() {
+                BackHandler {
                     scope.launch {
                         drawerState.close()
                     }
@@ -271,43 +263,4 @@ fun Navigation(
 
 }
 
-
-@Composable
-fun MyBottomNavigation(
-    navController: NavController,
-    currentDestination: NavDestination?,
-    items: List<Screens>
-) {
-
-
-    if (navController.currentDestination?.route in items.map { it.route }) {
-        NavigationBar {
-            items.forEach { screen ->
-                NavigationBarItem(
-                    selected = currentDestination?.hierarchy?.any { it.route == screen.route } == true,
-                    onClick = {
-                        navController.navigate(screen.route) {
-                            popUpTo(navController.graph.findStartDestination().id) {
-                                saveState = true
-                            }
-                            launchSingleTop = true
-                            restoreState = true
-                        }
-                    },
-                    icon = {
-                        Icon(
-                            painterResource(id = screen.icon),
-                            contentDescription = "icon",
-                            modifier = Modifier.size(24.dp)
-                        )
-                    },
-                    label = {
-                        Text(text = screen.name)
-                    },
-                    alwaysShowLabel = false
-                )
-            }
-        }
-    }
-}
 

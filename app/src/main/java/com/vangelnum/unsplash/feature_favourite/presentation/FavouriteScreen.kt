@@ -32,7 +32,7 @@ import coil.compose.SubcomposeAsyncImage
 import coil.compose.SubcomposeAsyncImageContent
 import com.vangelnum.unsplash.R
 import com.vangelnum.unsplash.core.common.Resource
-import com.vangelnum.unsplash.core.presentation.navigation.Screens
+import com.vangelnum.unsplash.core.presentation.navigationHost.Screens
 import com.vangelnum.unsplash.feature_favourite.domain.model.FavouriteItem
 import com.vangelnum.unsplash.feature_favourite.presentation.FavouriteViewModel
 import java.net.URLEncoder

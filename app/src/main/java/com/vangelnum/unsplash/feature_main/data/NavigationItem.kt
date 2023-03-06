@@ -1,4 +1,4 @@
-package com.vangelnum.unsplash.core.presentation
+package com.vangelnum.unsplash.feature_main.data
 
 import androidx.annotation.DrawableRes
 
