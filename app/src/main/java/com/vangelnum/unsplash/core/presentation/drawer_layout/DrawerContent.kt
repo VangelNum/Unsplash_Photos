@@ -77,14 +77,14 @@ fun DrawerBody(navController: NavController, drawerState: DrawerState) {
     val context = LocalContext.current
     val scope = rememberCoroutineScope()
 
-    LazyColumn() {
+    LazyColumn {
         itemsIndexed(items) { index, item ->
             ListItem(modifier = Modifier.clickable {
                 onEvent(item, navController, context, scope,drawerState)
             }, headlineText = {
                 Text(text = item.title)
             }, leadingContent = {
-                if (index > 2) {
+                if (index > 1) {
                     Image(
                         painter = painterResource(id = item.icon),
                         contentDescription = item.title,

@@ -13,5 +13,4 @@ interface ApiInterfaceSearch {
         @Query("per_page") per_page: Int
     ): SearchItemsDto
 
-
 }
