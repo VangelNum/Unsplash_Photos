@@ -4,8 +4,6 @@ import android.content.Context
 import androidx.room.Room
 import com.vangelnum.unsplash.feature_favourite.data.network.FavouriteDao
 import com.vangelnum.unsplash.feature_favourite.data.network.FavouriteDatabase
-import com.vangelnum.unsplash.feature_favourite.data.repository.FavouriteRepositoryImpl
-import com.vangelnum.unsplash.feature_favourite.domain.repository.FavouriteRepository
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -35,12 +33,5 @@ object FavouriteModule {
     @Provides
     fun provideFavouritePhotosDao(appDatabase: FavouriteDatabase): FavouriteDao {
         return appDatabase.getDao()
-    }
-
-
-    @Singleton
-    @Provides
-    fun provideRepository(dao: FavouriteDao): FavouriteRepository {
-        return FavouriteRepositoryImpl(dao)
     }
 }

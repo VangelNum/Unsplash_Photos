@@ -78,7 +78,7 @@ fun NavigationScreen(
                     navController.navigate(Screens.SearchScreen.route)
                 },
             placeholder = {
-                Text(text = "Search wallpapers")
+                Text(text = stringResource(id = R.string.search_wallpapers))
             }, trailingIcon = {
                 Icon(imageVector = Icons.Outlined.Search, contentDescription = "search")
             },

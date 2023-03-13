@@ -1,8 +1,6 @@
 package com.vangelnum.unsplash.feature_random.di
 
 import com.vangelnum.unsplash.feature_random.data.api.ApiInterfaceRandom
-import com.vangelnum.unsplash.feature_random.data.repository.RandomRepositoryImpl
-import com.vangelnum.unsplash.feature_random.domain.repository.RandomRepository
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -21,9 +19,5 @@ object RandomModule {
         return retrofit.create(ApiInterfaceRandom::class.java)
     }
 
-    @Provides
-    @Singleton
-    fun provideRepository(api: ApiInterfaceRandom): RandomRepository {
-        return RandomRepositoryImpl(api)
-    }
+
 }
