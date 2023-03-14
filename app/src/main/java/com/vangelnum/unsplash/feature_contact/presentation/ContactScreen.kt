@@ -1,8 +1,5 @@
 package com.vangelnum.unsplash.feature_contact.presentation
 
-import android.content.Context
-import android.content.Intent
-import android.net.Uri
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -20,7 +17,7 @@ import androidx.compose.ui.unit.sp
 import com.vangelnum.unsplash.R
 
 @Composable
-fun ContactScreen() {
+fun ContactScreen(contactViewModel: ContactViewModel) {
     val context = LocalContext.current
     Column(
         modifier = Modifier
@@ -36,7 +33,7 @@ fun ContactScreen() {
             textAlign = TextAlign.Center,
             modifier = Modifier
                 .clickable {
-                    emailSend(context)
+                   contactViewModel.emailSend(context)
                 }
         )
         Text(
@@ -47,24 +44,9 @@ fun ContactScreen() {
             textAlign = TextAlign.Center,
             modifier = Modifier
                 .clickable {
-                    goToMyVk(context)
+                   contactViewModel.goToMyVk(context)
                 }
         )
     }
 }
 
-private fun goToMyVk(context: Context) {
-    val uri: Uri = Uri.parse("https://vk.com/vangelnum")
-    val browser = Intent(Intent.ACTION_VIEW, uri)
-    context.startActivity(browser)
-
-}
-
-private fun emailSend(context: Context) {
-    val mailto = "mailto:vangelnum@gmail.com" +
-            "?cc=" +
-            "&subject=" + Uri.encode("WallPaper Unsplash")
-    val emailIntent = Intent(Intent.ACTION_SENDTO)
-    emailIntent.data = Uri.parse(mailto)
-    context.startActivity(emailIntent)
-}

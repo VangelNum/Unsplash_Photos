@@ -35,6 +35,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
 import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
@@ -49,6 +50,7 @@ import com.vangelnum.unsplash.core.presentation.drawer_layout.DrawerHeader
 import com.vangelnum.unsplash.feature_collections.presentation.CollectionSearchScreen
 import com.vangelnum.unsplash.feature_collections.presentation.CollectionsScreen
 import com.vangelnum.unsplash.feature_contact.presentation.ContactScreen
+import com.vangelnum.unsplash.feature_contact.presentation.ContactViewModel
 import com.vangelnum.unsplash.feature_latest.presentation.MainScreen
 import com.vangelnum.unsplash.feature_main.presentation.NavigationScreen
 import com.vangelnum.unsplash.feature_popular.presentation.PopularScreen
@@ -251,7 +253,8 @@ fun Navigation(
                         )
                     }
                     composable(route = Screens.ContactScreen.route) {
-                        ContactScreen()
+                        val contactViewModel: ContactViewModel by viewModel()
+                        ContactScreen(contactViewModel)
                     }
                 }
 
