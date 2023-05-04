@@ -1,7 +1,20 @@
 # Unsplash_Photos
-Wallpaper finder app
 
-Technologies used:
+## How to start using:
+1. Follow the link https://unsplash.com/developers
+2. Create an account and copy API key
+3. In project go to src\main\java\com\vangelnum\unsplash\core\utils\Constants
+5. Change API key on your own
+
+```
+object Constants 
+{
+    const val BASE_URL = "https://api.unsplash.com"
+    const val API_KEY = "YOUR KEY"
+}
+```
+
+## Technologies used:
 
 MVVM: Model-View-ViewModel is a design pattern that separates a user interface (view) from business logic (view model) and data (model).
 
@@ -29,7 +42,7 @@ Flow: Flow is a reactive programming library for Android that provides a streaml
 
 Coil: Coil is an image loading library for Android that provides a fast and lightweight way to load and display images from various sources. It simplifies the process of caching and resizing images and provides a smooth user experience.
 
-Application screenshots:
+## Application screenshots:
 
 ![image](https://user-images.githubusercontent.com/91003195/224981317-36de9d45-2a46-437d-baf7-bb67eaf9a858.png)
 ![image](https://user-images.githubusercontent.com/91003195/224981416-041e6cc0-255a-415b-95c3-bbfaa2948e6d.png)
